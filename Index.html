@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base target="_top" />
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+    }
+    h2 {
+        color: #333;
+    }
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    button {
+        background-color: #0073e6;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #005cbf;
+    }
+    </style>
+</head>
+<body>
+    <h2>CSV Importer</h2>
+    <input type="file" id="csvFile" accept=".csv" /><br />
+    <button onclick="importCSV()">Import</button>
+    <script>
+    function importCSV() {
+        var fileInput = document.getElementById("csvFile");
+        var file = fileInput.files[0];
+        if (!file) {
+            alert("Please select a CSV file.");
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            google.script.run.importCSVData(e.target.result);
+            google.script.host.close();
+        };
+        reader.readAsText(file);
+    }
+    </script>
+</body>
+</html>
+
